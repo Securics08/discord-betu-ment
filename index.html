@@ -2,196 +2,177 @@
 <html lang="hu">
 <head>
 <meta charset="UTF-8">
-<title>Discord Neon + ANSI + INI</title>
+<title>Discord Tools - 35 Fonts & Dual Neon</title>
 <style>
-body { font-family:'Segoe UI', sans-serif; background:#313338; color:#eee; padding:20px; display:flex; flex-direction:column; align-items:center; }
-.container { max-width:950px; width:100%; background:#2b2d31; padding:30px; border-radius:15px; border:1px solid #444; box-shadow:0 10px 50px rgba(0,0,0,0.7); margin-bottom:40px; }
-.tabs { display:flex; gap:10px; margin-bottom:20px; }
-.tab { flex:1; padding:10px; text-align:center; background:#1e1f22; cursor:pointer; border-radius:6px; font-weight:bold; }
-.tab.active { background:#5865f2; color:#fff; }
-.section { display:none; }
-textarea, select { width:100%; border-radius:6px; border:none; padding:12px; font-size:16px; box-sizing:border-box; resize:vertical; font-family:monospace; }
-#textAnsi { height:200px; font-size:20px; background:#1e1f22; color:#eee; }
-#textIni { height:350px; font-size:16px; background:#111; color:#ccc; }
+body { font-family:'Segoe UI', sans-serif; background:#313338; color:#eee; padding:20px; display:flex; flex-direction:column; align-items:center; } /* Alap; Alap */
+.container { max-width:950px; width:100%; background:#2b2d31; padding:30px; border-radius:15px; border:1px solid #444; box-shadow:0 10px 50px rgba(0,0,0,0.7); margin-bottom:40px; } /* Konténer; Konténer */
+.tabs { display:flex; gap:10px; margin-bottom:20px; } /* Fülek; Fülek */
+.tab { flex:1; padding:12px; text-align:center; background:#1e1f22; cursor:pointer; border-radius:6px; font-weight:bold; color:#b5bac1; } /* Tab; Tab */
+.tab.active { background:#5865f2; color:#fff; } /* Aktív; Aktív */
+.section { display:none; } /* Szekció; Szekció */
 
-/* Számlálók stílusa - Mindig látható zöld, hiba esetén piros */
-.count { text-align:right; font-size:14px; margin-top:5px; color:#00FF00 !important; font-weight:bold; text-shadow: 1px 1px 2px #000; }
-.count.warn { color:#ff4444 !important; }
+textarea, select { width:100%; border-radius:6px; border:none; padding:12px; font-size:16px; box-sizing:border-box; resize:vertical; font-family:monospace; background:#1e1f22; color:#dbdee1; border: 1px solid #222; } /* Mezők; Mezők */
+.count { text-align:right; font-size:14px; margin-top:5px; color:#39FF14; font-weight:bold; } /* Számláló; Számláló */
 
-button { margin-top:15px; padding:12px; background:#222; color:#fff; border:none; border-radius:6px; cursor:pointer; font-weight:bold; width: 100%; }
-button:hover { background:#444; border:1px solid #5865f2; }
+.btn-group { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; } /* Gombcsoport; Gombcsoport */
+button { padding:14px; background:#5865f2; color:#fff; border:none; border-radius:6px; cursor:pointer; font-weight:bold; font-size: 15px; transition: 0.2s; } /* Gomb; Gomb */
+button:hover { background: #4752c4; } /* Hover; Hover */
+.btn-alt { background: #4e5058; } /* Alt gomb; Alt gomb */
 
-/* Színrács javítása, hogy minden szín elférjen */
-.color-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(40px, 1fr)); gap:8px; margin-top:10px; background: #1e1f22; padding: 10px; border-radius: 8px; }
-.color-item { height:35px; border-radius:4px; cursor:pointer; border:1px solid rgba(255,255,255,0.2); }
-.color-item.active { border:2px solid #fff; box-shadow:0 0 10px rgba(255,255,255,0.8); }
+.size-controls { display: flex; align-items: center; gap: 10px; margin: 15px 0; } /* Csúszka; Csúszka */
+.step-btn { width: 45px; height: 35px; background: #4e5058; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 20px; } /* Lépés gomb; Lépés gomb */
 
-/* Betűtípus választó színezése */
-#fontSelect { background: #000; color: #00FF00; font-weight: bold; }
-#fontSelect option { background: #111; color: #00FF00; }
+.color-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(40px, 1fr)); gap:8px; margin-top:10px; background: #1e1f22; padding: 10px; border-radius: 8px; } /* Színrács; Színrács */
+.color-item { height:35px; border-radius:4px; cursor:pointer; border:1px solid rgba(255,255,255,0.1); } /* Szín; Szín */
+.color-item.active { border:2px solid #fff; box-shadow: 0 0 8px #fff; } /* Aktív szín; Aktív szín */
 
-#preview-container { margin-top:20px; background:#313338; padding:15px; border-radius:10px; border:1px dashed #555; overflow:auto; max-height:400px; }
-#preview-text { white-space:pre; line-height:1.2; }
+#preview-container { margin-top:20px; background:#313338; padding:20px; border-radius:10px; border:1px dashed #4e5058; overflow:auto; max-height:400px; min-height:60px; } /* Előnézet; Előnézet */
+#preview-text { white-space:pre-wrap; line-height:1.2; display: block; word-break: break-all; } /* Előnézet szöveg; Előnézet szöveg */
 </style>
 </head>
 <body>
 
 <div class="container">
   <div class="tabs">
-    <div class="tab active" data-target="neon">Neon Generátor</div>
-    <div class="tab" data-target="ansi">ANSI Színek</div>
-    <div class="tab" data-target="ini">Discord INI</div>
+    <div class="tab active" data-target="neon">Neon (35 Betű + 2 Mód)</div>
+    <div class="tab" data-target="ansi">ANSI (Színes)</div>
+    <div class="tab" data-target="ini">INI (Kód)</div>
   </div>
 
   <div id="neon" class="section" style="display:block;">
-    <textarea id="inputTextNeon" maxlength="4000">Írj ide...</textarea>
-    <div class="count" id="cNeon">0 / 4000</div>
-    <div style="margin-top:10px;">
-      <label>Betűtípus (Színes lista):</label>
-      <select id="fontSelect">
-        <option value="Arial">Arial</option>
-        <option value="'Segoe UI'">Segoe UI</option>
-        <option value="Verdana">Verdana</option>
-        <option value="Impact">Impact</option>
-        <option value="'Arial Black'">Arial Black</option>
-        <option value="'Courier New'">Courier New</option>
-        <option value="'Lucida Console'">Lucida Console</option>
-        <option value="'Trebuchet MS'">Trebuchet MS</option>
-        <option value="Georgia">Georgia</option>
-        <option value="'Times New Roman'">Times New Roman</option>
-        <option value="Palatino">Palatino</option>
-        <option value="Copperplate">Copperplate</option>
-        <option value="'Comic Sans MS'">Comic Sans</option>
-        <option value="'Brush Script MT'">Brush Script</option>
-        <option value="Tahoma">Tahoma</option>
-        <option value="Geneva">Geneva</option>
-        <option value="Helvetica">Helvetica</option>
-        <option value="Cambria">Cambria</option>
-        <option value="Calibri">Calibri</option>
-        <option value="Candara">Candara</option>
-        <option value="Optima">Optima</option>
-        <option value="Perpetua">Perpetua</option>
-        <option value="Monaco">Monaco</option>
-        <option value="Consolas">Consolas</option>
-        <option value="Garamond">Garamond</option>
-        <option value="Didot">Didot</option>
-        <option value="Rockwell">Rockwell</option>
-        <option value="Baskerville">Baskerville</option>
-        <option value="Papyrus">Papyrus</option>
-        <option value="'Century Gothic'">Century Gothic</option>
-        <option value="Futura">Futura</option>
-        <option value="'Franklin Gothic Medium'">Franklin Gothic</option>
-        <option value="'Book Antiqua'">Book Antiqua</option>
-        <option value="'Segoe Script'">Segoe Script</option>
-        <option value="fantasy">Fantasy</option>
-      </select>
+    <textarea id="inputTextNeon" placeholder="Írd ide a szöveget..."></textarea>
+    <div class="count" id="cNeon">0</div>
+    
+    <select id="fontSelect" style="margin-top:15px;">
+        <option value="Arial">Arial</option><option value="'Segoe UI'">Segoe UI</option><option value="Verdana">Verdana</option>
+        <option value="Impact">Impact</option><option value="'Arial Black'">Arial Black</option><option value="'Courier New'">Courier New</option>
+        <option value="'Lucida Console'">Lucida Console</option><option value="'Trebuchet MS'">Trebuchet MS</option><option value="Georgia">Georgia</option>
+        <option value="'Times New Roman'">Times New Roman</option><option value="Palatino">Palatino</option><option value="Copperplate">Copperplate</option>
+        <option value="'Comic Sans MS'">Comic Sans</option><option value="'Brush Script MT'">Brush Script</option><option value="Tahoma">Tahoma</option>
+        <option value="Geneva">Geneva</option><option value="Helvetica">Helvetica</option><option value="Cambria">Cambria</option>
+        <option value="Calibri">Calibri</option><option value="Candara">Candara</option><option value="Optima">Optima</option>
+        <option value="Perpetua">Perpetua</option><option value="Monaco">Monaco</option><option value="Consolas">Consolas</option>
+        <option value="Garamond">Garamond</option><option value="Didot">Didot</option><option value="Rockwell">Rockwell</option>
+        <option value="Baskerville">Baskerville</option><option value="Papyrus">Papyrus</option><option value="'Century Gothic'">Century Gothic</option>
+        <option value="Futura">Futura</option><option value="'Franklin Gothic Medium'">Franklin Gothic</option><option value="'Book Antiqua'">Book Antiqua</option>
+        <option value="'Segoe Script'">Segoe Script</option><option value="fantasy">Fantasy</option>
+    </select>
+
+    <div class="size-controls">
+        <button class="step-btn" onclick="stepSize(-5)">-</button>
+        <input type="range" id="fsNeon" min="10" max="400" value="40" style="flex:1;">
+        <button class="step-btn" onclick="stepSize(5)">+</button>
+        <span id="szDisplay" style="min-width:50px;">40px</span>
     </div>
-    <div style="margin-top:10px;">
-      <label>Betűméret: <span id="szDisplay" style="color:#0f0; font-weight:bold;">22px</span></label>
-      <input type="range" id="fsNeon" min="8" max="150" value="22">
-    </div>
+
     <div class="color-grid" id="cGrid"></div>
-    <button id="saveBtnNeon">KÉP MENTÉSE (BEÁLLÍTOTT MÉRETTEL)</button>
+
+    <div class="btn-group">
+        <button onclick="saveNeon('square')">NÉGYZETES MENTÉS</button>
+        <button class="btn-alt" onclick="saveNeon('wide')">SZÉLES MENTÉS</button>
+    </div>
+
     <div id="preview-container"><div id="preview-text"></div></div>
   </div>
 
   <div id="ansi" class="section">
-    <textarea id="textAnsi" maxlength="4000" placeholder="ANSI szöveg..."></textarea>
+    <textarea id="textAnsi" maxlength="4000" style="height:200px;" placeholder="ANSI szöveg..."></textarea>
     <div class="count" id="cAnsi">0 / 4000</div>
     <select id="ansiCol" style="margin-top:10px;">
-      <option value="32">🟢 Zöld</option>
-      <option value="34">🔵 Kék</option>
-      <option value="31">🔴 Piros</option>
-      <option value="33">🟡 Sárga</option>
-      <option value="36">🟦 Cyan</option>
-      <option value="35">🟣 Magenta</option>
+        <option value="33" selected>Sárga</option><option value="31">Piros</option><option value="32">Zöld</option><option value="34">Kék</option><option value="35">Lila</option><option value="36">Cián</option><option value="37">Fehér</option>
     </select>
-    <button onclick="cpAnsi()">ANSI MÁSOLÁS</button>
+    <button style="width:100%; margin-top:10px;" onclick="cpAnsi()">ANSI MÁSOLÁS</button>
   </div>
 
   <div id="ini" class="section">
-    <textarea id="textIni" maxlength="4000" placeholder="INI kód..."></textarea>
+    <textarea id="textIni" maxlength="4000" style="height:300px;" placeholder="INI kód..."></textarea>
     <div class="count" id="cIni">0 / 4000</div>
-    <button onclick="cpIni()">INI MÁSOLÁSA</button>
+    <button style="width:100%; margin-top:10px;" onclick="cpIni()">INI MÁSOLÁS</button>
   </div>
 </div>
 
 <script>
-let selC = "#00FF00";
-// Kibővített színlista: Fehér és Fekete az elején
-const colors = ["#FFFFFF","#000000","#0000FF","#00FF00","#FFFF00","#00FFFF","#FF00FF","#FF0000","#FFA500","#800080","#008000","#800000","#000080","#00FF7F","#FFD700","#DC143C","#00CED1","#FF1493"];
+let selC = "#FFFF00";
+const colors = ["#FFFFFF","#000000","#0000FF","#00FF00","#FFFF00","#00FFFF","#FF00FF","#FF0000","#FFA500","#800080","#008000","#800000","#000080","#00FF7F","#FFD700","#DC143C","#00CED1","#FF1493","#ADFF2F","#FF4500","#DA70D6","#1E90FF","#F0E68C","#E6E6FA"];
 
 document.querySelectorAll('.tab').forEach(t => {
   t.onclick = () => {
     document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
     document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
-    t.classList.add('active');
-    document.getElementById(t.dataset.target).style.display = 'block';
+    t.classList.add('active'); document.getElementById(t.dataset.target).style.display = 'block';
   };
 });
 
 const grid = document.getElementById('cGrid');
 colors.forEach(c => {
   const d = document.createElement('div'); d.className = 'color-item';
-  if(c === selC) d.classList.add('active');
-  d.style.backgroundColor = c;
-  d.title = c;
-  d.onclick = () => {
-    selC = c; document.querySelectorAll('.color-item').forEach(i => i.classList.remove('active'));
-    d.classList.add('active'); 
-    // Betűtípus választó színének frissítése a kiválasztott színre
-    document.getElementById('fontSelect').style.color = c;
-    upNeon();
-  };
+  d.style.backgroundColor = c; if(c === selC) d.classList.add('active');
+  d.onclick = () => { selC = c; document.querySelectorAll('.color-item').forEach(i => i.classList.remove('active')); d.classList.add('active'); upNeon(); };
   grid.appendChild(d);
 });
 
-function updateCounter(id, countId) {
-  const val = document.getElementById(id).value.length;
-  const el = document.getElementById(countId);
-  el.textContent = val + " / 4000";
-  if(val >= 3900) el.classList.add("warn"); else el.classList.remove("warn");
-}
+function stepSize(v) { const s = document.getElementById('fsNeon'); s.value = parseInt(s.value) + v; upNeon(); }
 
 function upNeon() {
-  updateCounter('inputTextNeon', 'cNeon');
   const p = document.getElementById('preview-text'), i = document.getElementById('inputTextNeon'), f = document.getElementById('fontSelect'), s = document.getElementById('fsNeon');
   p.style.color = selC; p.style.fontFamily = f.value; p.style.fontSize = s.value + 'px';
   p.textContent = i.value; document.getElementById('szDisplay').textContent = s.value + 'px';
+  document.getElementById('cNeon').textContent = i.value.length;
 }
 
 document.getElementById('inputTextNeon').oninput = upNeon;
-document.getElementById('textAnsi').oninput = () => updateCounter('textAnsi', 'cAnsi');
-document.getElementById('textIni').oninput = () => updateCounter('textIni', 'cIni');
 document.getElementById('fontSelect').onchange = upNeon;
 document.getElementById('fsNeon').oninput = upNeon;
 
-document.getElementById('saveBtnNeon').onclick = () => {
-  const i = document.getElementById('inputTextNeon'), f = document.getElementById('fontSelect'), s = document.getElementById('fsNeon');
+function saveNeon(mode) {
+  const text = document.getElementById('inputTextNeon').value;
+  if(!text.trim()) return alert("Üres!");
+  const fontSize = parseInt(document.getElementById('fsNeon').value);
+  const fontName = document.getElementById('fontSelect').value;
   const canvas = document.createElement('canvas'), ctx = canvas.getContext('2d');
-  const size = parseInt(s.value), font = f.value, pad = 40;
-  
-  ctx.font = size + "px " + font;
-  const lines = i.value.split('\n');
+  ctx.font = fontSize + "px " + fontName;
+
+  let lines = [];
+  if (mode === 'wide') {
+    lines = text.split('\n');
+  } else {
+    const charWidth = ctx.measureText("W").width;
+    const targetWrap = Math.max(Math.sqrt(text.length * charWidth * fontSize), fontSize * 10);
+    text.split('\n').forEach(p => {
+      let words = p.split(' '), current = "";
+      words.forEach(w => {
+        let test = current + (current ? " " : "") + w;
+        if (ctx.measureText(test).width > targetWrap) { lines.push(current); current = w; } else { current = test; }
+      });
+      lines.push(current);
+    });
+  }
+
   let maxW = 0;
-  lines.forEach(l => {
-    let w = ctx.measureText(l).width;
-    if (w > maxW) maxW = w;
+  lines.forEach(l => { 
+    const w = ctx.measureText(l).width;
+    if(w > maxW) maxW = w;
   });
 
-  canvas.width = maxW + (pad * 2);
-  const lh = size * 1.2;
-  canvas.height = (lines.length * lh) + (pad * 2);
+  const padding = fontSize;
+  canvas.width = Math.ceil(maxW + (padding * 2.5)); // Biztonsági ráhagyás a szélén ; Biztonsági ráhagyás a szélén
+  canvas.height = Math.ceil((lines.length * fontSize * 1.4) + (padding * 2));
+  
+  ctx.fillStyle = "#313338"; ctx.fillRect(0,0,canvas.width, canvas.height);
+  ctx.font = fontSize + "px " + fontName; ctx.fillStyle = selC; ctx.textBaseline = "top";
+  
+  lines.forEach((l, idx) => {
+    ctx.fillText(l, padding, padding + (idx * fontSize * 1.4));
+  });
 
-  ctx.fillStyle = "#313338"; ctx.fillRect(0,0,canvas.width,canvas.height);
-  ctx.fillStyle = selC; ctx.font = size + "px " + font; ctx.textBaseline = "top";
-  lines.forEach((l, idx) => ctx.fillText(l, pad, pad + (idx * lh)));
+  const a = document.createElement('a'); a.href = canvas.toDataURL(); a.download = `neon_${mode}.png`; a.click();
+}
 
-  const a = document.createElement('a'); a.href = canvas.toDataURL(); a.download = 'neon_export.png'; a.click();
-};
-
-function cpAnsi() { navigator.clipboard.writeText("```ansi\n\x1b[1;" + document.getElementById('ansiCol').value + "m" + document.getElementById('textAnsi').value + "\x1b[0m\n```"); alert("ANSI másolva!"); }
-function cpIni() { navigator.clipboard.writeText("```ini\n" + document.getElementById('textIni').value + "\n```"); alert("INI másolva!"); }
+function cpAnsi() { 
+  const c = document.getElementById('ansiCol').value, t = document.getElementById('textAnsi').value;
+  navigator.clipboard.writeText("```ansi\n\x1b[" + c + "m" + t + "\x1b[0m\n```"); alert("OK"); 
+}
+function cpIni() { navigator.clipboard.writeText("```ini\n" + document.getElementById('textIni').value + "\n```"); alert("OK"); }
 
 upNeon();
 </script>
