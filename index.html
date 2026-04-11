@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Discord Tools - Final Render Fix</title>
+<title>Discord Tools - Edge-to-Edge Save</title>
 <style>
 body { font-family:'Segoe UI', Tahoma, sans-serif; background:#313338; color:#eee; padding:20px; display:flex; flex-direction:column; align-items:center; } /* Alap stílus ; Alap stílus */
 .container { max-width:950px; width:100%; background:#2b2d31; padding:25px; border-radius:15px; border:1px solid #444; box-shadow:0 10px 40px rgba(0,0,0,0.5); } /* Konténer ; Konténer */
@@ -174,10 +174,10 @@ function saveNeon(m) {
   const t = document.getElementById('inNeon').value; if(!t) return;
   const canvas = document.createElement('canvas'), ctx = canvas.getContext('2d');
   const fName = document.getElementById('fontNeon').value;
+  const fStr = "bold " + currentPx + "px " + fName;
   
   if (m === 'auto') {
     const lines = t.split('\n');
-    const fStr = "bold " + currentPx + "px " + fName;
     ctx.font = fStr; 
     
     let maxW = 0;
@@ -186,11 +186,12 @@ function saveNeon(m) {
       if (w > maxW) maxW = w;
     });
     
-    const padding = 20;
-    canvas.width = Math.ceil(maxW + padding * 2);
-    canvas.height = Math.ceil((lines.length * currentPx * 1.3) + padding);
+    // Margók minimalizálása a szélek kitöltéséhez ; Minimal padding
+    const paddingX = 2; // Minimális oldalsó margó
+    const paddingY = 2; // Minimális alsó-felső margó
+    canvas.width = Math.ceil(maxW + paddingX * 2);
+    canvas.height = Math.ceil((lines.length * currentPx * 1.3) + paddingY * 2);
     
-    // Canvas reset után újra be kell állítani mindent! ; Fix
     ctx.fillStyle = "#2b2d31"; ctx.fillRect(0, 0, canvas.width, canvas.height);
     ctx.font = fStr;
     ctx.fillStyle = selC;
@@ -204,6 +205,7 @@ function saveNeon(m) {
       ctx.fillText(l, canvas.width / 2, startY + (i * lineH));
     });
   } else {
+    // Négyzetes mentés ; Square Save
     canvas.width = 1080; canvas.height = 1080;
     ctx.fillStyle = "#2b2d31"; ctx.fillRect(0, 0, 1080, 1080);
     const margin = 1080 * 0.1, maxWidth = 1080 - (margin * 2), maxHeight = 1080 - (margin * 2);
